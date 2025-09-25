@@ -1,108 +1,76 @@
-'use client';
-import { useState, useEffect, useCallback, FC } from 'react';
-import useEmblaCarousel from 'embla-carousel-react';
-import { NextButton, PrevButton } from './ArrowButtons'; // Importar los botones
-import { DotButton } from './DotButton'; // Importar el botón de puntos
-import { CarouselProps, PrevNextButtonPropType, DotButtonPropType } from "../interfaces/Carousel.props";
-import imageByIndex from '../utils/ImageByIndex'; // Función para manejar imágenes por índice
+"use client"
+import { useEffect, useState } from "react";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-const Carousel: FC<CarouselProps> = ({    
-  slides,
-  options,
-  haveButtons,
-  haveDots,
-  images,
-  className,
-  interval,
-  classNameSlide,
-  childrens,
-}) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel(options);
-  const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
-  const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
-  const [intervalTime] = useState(interval);
+interface CarouselProps {
+  images: string[];
+  autoSlideInterval?: number;
+}
 
-  const scrollPrev = useCallback(() => {
-    emblaApi && emblaApi.scrollPrev();
-  }, [emblaApi]);
+const Carousel: React.FC<CarouselProps> = ({ images, autoSlideInterval = 5000 }) => {
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
 
-  const scrollNext = useCallback(() => {
-    emblaApi && emblaApi.scrollNext();
-  }, [emblaApi]);
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+  };
 
-  const scrollTo = useCallback((index: number) => {
-    emblaApi && emblaApi.scrollTo(index);
-  }, [emblaApi]);
-
-  const onInit = useCallback((emblaApi: any) => {
-    setScrollSnaps(emblaApi.scrollSnapList());
-  }, []);
-
-  const onSelect = useCallback((emblaApi: any) => {
-    setSelectedIndex(emblaApi.selectedScrollSnap());
-    setPrevBtnEnabled(emblaApi.canScrollPrev());
-    setNextBtnEnabled(emblaApi.canScrollNext());
-  }, []);
+  // Función para mover al anterior elemento
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+    );
+  };
 
   useEffect(() => {
-    if (!emblaApi) return;
-    onInit(emblaApi);
-    onSelect(emblaApi);
-    emblaApi.on('reInit', onInit);
-    emblaApi.on('reInit', onSelect);
-    emblaApi.on('select', onSelect);
-  }, [emblaApi, onInit, onSelect]);
-
-  useEffect(() => {
-    if (emblaApi && intervalTime) {
-      setInterval(() => {
-        emblaApi.scrollNext();
-      }, intervalTime);
-    }
-  }, [emblaApi, intervalTime]);
+    const interval = setInterval(nextSlide, autoSlideInterval);
+    return () => clearInterval(interval);
+  }, [autoSlideInterval]);
 
   return (
-    <div className={`relative ${className}`}>
-      <div className="embla">
-        <div className="embla__viewport" ref={emblaRef}>
-          <div className="embla__container">
-            {slides.map((index) => (
-              <div className={classNameSlide} key={index}>
-                {childrens && childrens[index]}
-                {images && (
-                  <img
-                    className="embla__slide__img"
-                    src={imageByIndex(index, images)}
-                    alt="Carousel image"/>
-                )}
-              </div>
-            ))}
+    <div className="relative w-full h-[400px] sm:h-[500px] overflow-hidden rounded-lg">
+      <div
+        className="absolute inset-0 w-full h-full flex transition-transform duration-500"
+        style={{
+          transform: `translateX(-${currentIndex * 100}%)`,
+        }}>
+        {images.map((image, index) => (
+          <div key={index} className="w-full h-full flex-shrink-0">
+            <img
+              src={image}
+              alt={`Slide ${index}`}
+              className="w-full h-full object-cover rounded-lg"/>
           </div>
-        </div>
-
-        {haveButtons && (
-          <>
-            <PrevButton onClick={scrollPrev} enabled={prevBtnEnabled} />
-            <NextButton onClick={scrollNext} enabled={nextBtnEnabled} />
-          </>
-        )}
+        ))}
       </div>
-      {haveDots && (
-        <div className="embla__dots">
-          {scrollSnaps.map((_, index) => (
-            <DotButton
-              key={index}
-              selected={index === selectedIndex}
-              onClick={() => scrollTo(index)}
-            />
-          ))}
-        </div>
-      )}
+
+      {/* Botón de retroceder */}
+      <button
+        onClick={prevSlide}
+        className="absolute top-1/2 left-0 transform -translate-y-1/2 px-4 py-2 bg-white text-gray-800 rounded-full shadow-md hover:bg-gray-200 transition">
+        <FaArrowLeft size={24} />
+      </button>
+
+      {/* Botón de siguiente */}
+      <button
+        onClick={nextSlide}
+        className="absolute top-1/2 right-0 transform -translate-y-1/2 px-4 py-2 bg-white text-gray-800 rounded-full shadow-md hover:bg-gray-200 transition">
+        <FaArrowRight size={24} />
+      </button>
+
+      {/* Indicadores de página */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+        {images.map((_, index) => (
+          <div
+            key={index}
+            onClick={() => setCurrentIndex(index)}
+            className={`w-3 h-3 rounded-full cursor-pointer ${
+              currentIndex === index ? "bg-white" : "bg-gray-400"
+            } transition`}
+          ></div>
+        ))}
+      </div>
     </div>
   );
 };
 
 export default Carousel;
-

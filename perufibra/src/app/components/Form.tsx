@@ -1,29 +1,8 @@
 'use client';
+
 import React, { useState } from 'react';
 
-interface FormProps {
-  modal: boolean;
-  className: string;
-  textLabel: string;
-  classNameButton: string;
-  placeholderName: string;
-  placeholderPhone: string;
-  buttonText: string;
-  textPolicy: string;
-  children?: React.ReactNode;
-}
-
-const Form: React.FC<FormProps> = ({
-  modal,
-  className,
-  textLabel,
-  classNameButton,
-  placeholderName,
-  placeholderPhone,
-  buttonText,
-  textPolicy,
-  children
-}) => {
+const Form: React.FC = () => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [acceptedPolicy, setAcceptedPolicy] = useState(false);
@@ -33,10 +12,10 @@ const Form: React.FC<FormProps> = ({
   };
 
   return (
-    <div className={`${className} ${modal ? "block" : "hidden"}`}>
-      <div className="w-full max-w-[320px] bg-white rounded-2xl shadow-lg p-6 text-center">
-        <h2 className="text-2xl font-bold text-red-600 mb-4">{textLabel}</h2>
-        <p className="text-lg text-gray-700 mb-4">
+    <div className="absolute top-10 right-10 z-20 hidden lg:block">
+      <div className="w-full max-w-[350px] bg-white bg-opacity-95 rounded-xl shadow-2xl p-6 text-left">
+        <h2 className="text-xl font-bold text-red-600 mb-2">Cámbiate hoy y disfruta una conexión superior.</h2>
+        <p className="text-sm text-gray-700 mb-4">
           Déjanos tus datos y un asesor especializado se contactará contigo.
         </p>
 
@@ -44,35 +23,32 @@ const Form: React.FC<FormProps> = ({
           <div className="mb-4">
             <input
               type="text"
-              placeholder={placeholderName}
+              placeholder="Nombre"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full p-2 mb-2 border-2 rounded-lg border-[#ddd] text-base bg-[#f1f1f1] text-[#404848]"
-            />
+              className="w-full p-2 border border-gray-300 rounded-lg bg-gray-100 text-sm"/>
           </div>
 
           <div className="mb-4">
             <input
               type="text"
-              placeholder={placeholderPhone}
+              placeholder="Nº de celular"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className="w-full p-2 mb-2 border-2 rounded-lg border-[#ddd] text-base bg-[#f1f1f1] text-[#404848]"
-            />
+              className="w-full p-2 border border-gray-300 rounded-lg bg-gray-00 text-sm"/>
           </div>
 
-          <p className="text-sm text-gray-500 mb-4">
-            *{textPolicy}
+          <p className="text-xs text-gray-500 mb-4">
+            *Ingrese su número sin anteponer el (+51)
           </p>
 
-          <div className="flex items-center justify-start mb-6">
+          <div className="flex items-start mb-4">
             <input
               type="checkbox"
               checked={acceptedPolicy}
               onChange={() => setAcceptedPolicy(!acceptedPolicy)}
-              className="mr-2"
-            />
-            <span className="text-sm text-gray-500">
+              className="mt-1 mr-2"/>
+            <span className="text-xs text-gray-500">
               He leído y Aceptado la{" "}
               <span className="font-semibold text-red-600">Política de Privacidad</span>
             </span>
@@ -81,9 +57,8 @@ const Form: React.FC<FormProps> = ({
           <button
             type="submit"
             disabled={!acceptedPolicy}
-            className={classNameButton}
-          >
-            {buttonText}
+            className="w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg text-sm transition disabled:opacity-100">
+            Solicitar llamada
           </button>
         </form>
       </div>
