@@ -1,6 +1,5 @@
 "use client"
 import { useState } from 'react';
-import { FaPhoneAlt } from 'react-icons/fa';
 import { BiSolidPhoneCall } from "react-icons/bi";
 
 export const Header = () => {

@@ -9,7 +9,7 @@ export default function Hero() {
     ];
 
     return (
-        <section className="relative flex flex-col items-center gap-2 min-h-[1000px]">
+        <section className="relative flex flex-col items-center gap-2 min-h-[100px]">
 
         {/* Carousel para escritorios */}
         <Carousel
