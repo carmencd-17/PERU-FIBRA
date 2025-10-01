@@ -60,10 +60,10 @@ function cardClasses(variant: Variant) {
 
 export default function Features() {
   return (
-    <section className="w-full px-4 sm:px-6 lg:px-8 py-10 lg:py-14 bg-white">
+    <section className="w-full px-4 sm:px-6 lg:px-15 py-10 lg:py-14 bg-white">
       {/* Encabezado */}
       <div className="max-w-7xl mx-auto mb-10 lg:mb-14">
-        <div className="flex flex-col lg:flex-row lg:items-end lg:gap-8">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:gap-10">
           <div>
             <h2 className="text-[28px] sm:text-[34px] lg:text-[40px] leading-tight text-[#D80319]">
               Internet Hogar Ilimitado
@@ -77,7 +77,7 @@ export default function Features() {
       </div>
 
       {/* Tarjetas */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10">
         {FEATURES.map((f, i) => {
           const c = cardClasses(f.variant);
           return (

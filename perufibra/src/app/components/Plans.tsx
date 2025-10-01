@@ -41,9 +41,9 @@ const plans: Plan[] = [
 
 export default function PlansSection() {
   return (
-    <section className="py-16 px-4 bg-white">
+    <section className="py-20 px-25 bg-white">
       <div className="max-w-7xl mx-auto text-center">
-        <div className="flex justify-center items-center gap-2 mb-8">
+        <div className="flex justify-center items-center gap-2 mb-20">
           <h2 className="text-3xl sm:text-4xl font-bold" style={{ color: "#D80319" }}>
             Nuestros Planes de Internet Hogar
           </h2>

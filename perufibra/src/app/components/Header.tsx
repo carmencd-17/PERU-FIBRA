@@ -13,11 +13,11 @@ export const Header = () => {
     <header className="sticky top-0 z-[120] w-full">
       <div className="w-full min-h-[50px] sm:min-h-[100px] bg-[#D80319] text-white flex flex-col sm:flex-row items-center px-4 sm:px-9 py-2 sm:py-2">
         {/* Logo de Perú Fibra */}
-        <div className="flex items-center mb-2 sm:mb-0 flex-grow">
+        <div className="flex items-center mb-2 sm:mb-0 w-full justify-center">
           <img
             src={"/img/logo-peru-fibra@2x 1.png"}
             alt="Perú Fibra"
-            className="h-12 sm:h-10 w-auto object-contain"/>
+            className="h-auto sm:h-[60px] w-auto object-contain"/>
         </div>
 
         {/* Canal exclusivo de ventas y número de teléfono */}

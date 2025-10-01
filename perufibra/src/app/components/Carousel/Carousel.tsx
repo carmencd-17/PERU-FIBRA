@@ -38,7 +38,7 @@ const Carousel: React.FC<CarouselProps> = ({ images, autoSlideInterval = 5000 })
             <img
               src={image}
               alt={`Slide ${index}`}
-              className="w-full h-full object-cover rounded-lg"/>
+              className="w-full h-full object-fill rounded-lg"/>
           </div>
         ))}
       </div>
