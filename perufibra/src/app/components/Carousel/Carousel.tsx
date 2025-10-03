@@ -1,4 +1,5 @@
 "use client"
+import useDeviceType from "@/app/hooks/useDeviceType";
 import { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
@@ -9,12 +10,12 @@ interface CarouselProps {
 
 const Carousel: React.FC<CarouselProps> = ({ images, autoSlideInterval = 5000 }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const isMobile = useDeviceType(); // Usamos tu hook `useDeviceType` aquí
 
   const nextSlide = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
-  // Función para mover al anterior elemento
   const prevSlide = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? images.length - 1 : prevIndex - 1
@@ -27,7 +28,7 @@ const Carousel: React.FC<CarouselProps> = ({ images, autoSlideInterval = 5000 })
   }, [autoSlideInterval]);
 
   return (
-    <div className="relative w-full h-[400px] sm:h-[500px] overflow-hidden rounded-lg">
+    <div className={`relative w-full ${isMobile ? 'h-[550px]' : 'h-[400px]'} sm:h-[500px] overflow-hidden`}>
       <div
         className="absolute inset-0 w-full h-full flex transition-transform duration-500"
         style={{
@@ -38,7 +39,7 @@ const Carousel: React.FC<CarouselProps> = ({ images, autoSlideInterval = 5000 })
             <img
               src={image}
               alt={`Slide ${index}`}
-              className="w-full h-full object-fill rounded-lg"/>
+              className="w-full h-full object-fill"/>
           </div>
         ))}
       </div>

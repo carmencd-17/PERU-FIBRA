@@ -1,10 +1,12 @@
-import React from "react"; 
+"use client";
+import React from "react";
 import { IoHomeOutline } from "react-icons/io5";
+import useDeviceType from "../hooks/useDeviceType";
 
 interface Plan {
   title: string;
   description: string;
-  megas: string; 
+  megas: string;
   price: string;
   paymentType: string;
   subtext: string[];
@@ -40,22 +42,24 @@ const plans: Plan[] = [
 ];
 
 export default function PlansSection() {
+  const isMobile = useDeviceType(); // Usamos el hook para detectar si es móvil
+
   return (
-    <section className="py-20 px-25 bg-white">
+    <section className="py-20 px-4 sm:px-6 lg:px-20 bg-white">
       <div className="max-w-7xl mx-auto text-center">
         <div className="flex justify-center items-center gap-2 mb-20">
           <h2 className="text-3xl sm:text-4xl font-bold" style={{ color: "#D80319" }}>
             Nuestros Planes de Internet Hogar
           </h2>
-          <IoHomeOutline color="#D80319" size={40}/>
+          <IoHomeOutline color="#D80319" size={40} />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className={`grid ${isMobile ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2'} gap-8`}>
           {plans.map((plan, idx) => (
             <div
               key={idx}
-              className="relative bg-white rounded-2xl shadow-lg p-9 text-center border-3 border-[#D80319] w-[400px] mx-auto">
-                
+              className="relative bg-white rounded-2xl shadow-lg p-9 text-center border-3 border-[#D80319] mx-auto w-full sm:w-[450px] lg:w-[500px] xl:w-[400px]">
+              
               {/* Título y velocidad */}
               <h3 className="text-2xl font-bold text-gray-800 mb-2">{plan.title}</h3>
               <p className="text-xl font-semibold text-black mb-5">{plan.description}</p>
@@ -83,5 +87,3 @@ export default function PlansSection() {
     </section>
   );
 }
-
-

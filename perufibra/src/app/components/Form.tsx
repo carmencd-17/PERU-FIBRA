@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import useDeviceType from "../hooks/useDeviceType";
 
 const Form: React.FC = () => {
   const [name, setName] = useState('');
@@ -10,10 +11,13 @@ const Form: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [responseMessage, setResponseMessage] = useState('');
 
+  const isMobile = useDeviceType();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
+  const isMobile = useDeviceType();  
     try {
       const res = await axios.post('https://crm.develzpbx.com:4004/call-me', {
         name,
@@ -31,8 +35,9 @@ const Form: React.FC = () => {
   };
 
   return (
-    <div className="absolute top-10 right-10 z-20 hidden lg:block rounded-4xl overflow-hidden">
-      <div className="w-full max-w-[350px] bg-white bg-opacity-95 rounded-xl shadow-2xl p-9 text-left">
+    <div className="absolute top-10 right-10 z-20 rounded-4xl overflow-hidden">
+      {/* Contenedor del formulario */}
+      <div className={`w-full max-w-[350px] bg-white bg-opacity-95 rounded-xl shadow-2xl p-9 text-left ${isMobile ? 'mt-4' : ''}`}>
         <h2 className="text-xl font-bold text-red-600 text-center mb-2">Cámbiate hoy y disfruta una conexión superior.</h2>
         <p className="text-sm text-gray-700 mb-4">
           Déjanos tus datos y un asesor especializado se contactará contigo.
@@ -81,19 +86,20 @@ const Form: React.FC = () => {
           </button>
         </form>
       </div>
+
       {/* Mensaje de respuesta */}
-        {responseMessage && (
-          <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
-            <div className="bg-red-600 text-white text-center p-8 rounded-xl max-w-[500px] w-full">
-              <h2 className="font-bold text-xl mb-4">{responseMessage}</h2>
-              <button
-                onClick={() => setResponseMessage("")}
-                className="bg-white text-red-600 py-2 px-4 rounded-full">
-                Volver
-              </button>
-            </div>
+      {responseMessage && (
+        <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-red-600 text-white text-center p-8 rounded-xl max-w-[500px] w-full">
+            <h2 className="font-bold text-xl mb-4">{responseMessage}</h2>
+            <button
+              onClick={() => setResponseMessage("")}
+              className="bg-white text-red-600 py-2 px-4 rounded-full">
+              Volver
+            </button>
           </div>
-        )}
+        </div>
+      )}
     </div>
   );
 };

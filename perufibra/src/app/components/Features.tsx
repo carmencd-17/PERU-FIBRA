@@ -61,50 +61,50 @@ function cardClasses(variant: Variant) {
 export default function Features() {
   return (
     <section className="w-full px-4 sm:px-6 lg:px-15 py-10 lg:py-14 bg-white">
-      {/* Encabezado */}
-      <div className="max-w-7xl mx-auto mb-10 lg:mb-14">
-        <div className="flex flex-col lg:flex-row lg:items-end lg:gap-10">
-          <div>
-            <h2 className="text-[28px] sm:text-[34px] lg:text-[40px] leading-tight text-[#D80319]">
-              Internet Hogar Ilimitado
-              <br />
-              <span className="text-[#D80319] font-bold">con la más alta velocidad</span>
-            </h2>
-          </div>
-          {/* línea a la derecha en pantallas grandes */}
-          <div className="hidden lg:block flex-1 h-[3px] bg-[#D80319] translate-y-[-6px]" />
+       <div className="max-w-7xl mx-auto mb-8 lg:mb-12">
+      <div className="flex flex-col lg:flex-row lg:items-end lg:gap-10">
+        <div>
+          <h2 className="text-[28px] sm:text-[34px] lg:text-[40px] leading-tight text-[#D80319]">
+            Internet Hogar ilimitado
+            <br />
+            <span className="font-extrabold text-[#D80319]">
+              con la más alta velocidad
+            </span>
+          </h2>
+          {/* Línea corta bajo el título en móvil/tablet */}
+          <div className="mt-3 h-[2px] w-24 bg-[#D80319] lg:hidden" />
         </div>
+        {/* Línea larga a la derecha solo en desktop */}
+        <div className="hidden lg:block flex-1 h-[2px] bg-[#D80319] translate-y-[-6px]" />
       </div>
+    </div>
 
-      {/* Tarjetas */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10">
-        {FEATURES.map((f, i) => {
-          const c = cardClasses(f.variant);
-          return (
-            <article
-              key={i}
-              className={`${c.wrapper} rounded-[28px] p-7 lg:p-8 shadow-[0_8px_24px_rgba(0,0,0,0.06)]`}>
-              <div className="w-20 h-20 mx-auto mb-5 flex items-center justify-center">
-                <img
-                  src={f.icon}
-                  alt={f.title}
-                  className="w-full h-full object-contain"
-                  loading="lazy"/>
-              </div>
+  <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10">
+    {FEATURES.map((f, i) => {
+      const c = cardClasses(f.variant);
+      return (
+        <article
+          key={i}
+          className={`${c.wrapper} rounded-[28px] p-7 lg:p-8 shadow-[0_8px_24px_rgba(0,0,0,0.06)]`}>
+          <div className="w-20 h-20 mx-auto mb-5 flex items-center justify-center">
+            <img
+              src={f.icon}
+              alt={f.title}
+              className="w-full h-full object-contain"
+              loading="lazy"/>
+          </div>
+          <h3 className={`${c.title} text-center text-[20px] lg:text-[22px] font-extrabold tracking-tight mb-3`}>
+            {f.title}
+          </h3>
+          <p className={`${c.body} text-center text-[14.5px] leading-6 lg:leading-7`}>
+            {f.text}
+          </p>
+        </article>
+      );
+    })}
+  </div>
+</section>
 
-              <h3
-                className={`${c.title} text-center text-[20px] lg:text-[22px] font-extrabold tracking-tight mb-3`}>
-                {f.title}
-              </h3>
 
-              <p
-                className={`${c.body} text-center text-[14.5px] leading-6 lg:leading-7`}>
-                {f.text}
-              </p>
-            </article>
-          );
-        })}
-      </div>
-    </section>
   );
 }
