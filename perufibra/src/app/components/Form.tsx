@@ -10,16 +10,16 @@ const Form: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [responseMessage, setResponseMessage] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const res = await axios.post('https://api.com/submit', {
+      const res = await axios.post('https://crm.develzpbx.com:4004/call-me', {
         name,
         phone
       });
-      setResponseMessage('¡Gracias por contactarnos! En breve, un asesor se pondrá en contacto contigo.');
+      setResponseMessage('¡Tu solicitud fue enviada con éxito! En breve, uno de nuestros asesores te llamará para iniciar tu experiencia con Perú Fibra.');
       setLoading(false);
       // Limpiar los campos después de enviar
       setName('');
@@ -81,6 +81,19 @@ const Form: React.FC = () => {
           </button>
         </form>
       </div>
+      {/* Mensaje de respuesta */}
+        {responseMessage && (
+          <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
+            <div className="bg-red-600 text-white text-center p-8 rounded-xl max-w-[500px] w-full">
+              <h2 className="font-bold text-xl mb-4">{responseMessage}</h2>
+              <button
+                onClick={() => setResponseMessage("")}
+                className="bg-white text-red-600 py-2 px-4 rounded-full">
+                Volver
+              </button>
+            </div>
+          </div>
+        )}
     </div>
   );
 };
