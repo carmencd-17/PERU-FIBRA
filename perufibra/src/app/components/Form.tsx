@@ -15,29 +15,26 @@ const Form: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!acceptedPolicy) return;
     setLoading(true);
 
-  const isMobile = useDeviceType();  
     try {
-      const res = await axios.post('https://crm.develzpbx.com:4004/call-me', {
-        name,
-        phone
-      });
+      await axios.post('https://crm.develzpbx.com:4004/call-me', { name, phone });
       setResponseMessage('¡Tu solicitud fue enviada con éxito! En breve, uno de nuestros asesores te llamará para iniciar tu experiencia con Perú Fibra.');
-      setLoading(false);
-      // Limpiar los campos después de enviar
       setName('');
       setPhone('');
-    } catch (error) {
+    } catch {
       setResponseMessage('Hubo un error, por favor intenta nuevamente.');
+    } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="absolute top-10 right-10 z-20 rounded-4xl overflow-hidden">
-      {/* Contenedor del formulario */}
-      <div className={`w-full max-w-[350px] bg-white bg-opacity-95 rounded-xl shadow-2xl p-9 text-left ${isMobile ? 'mt-4' : ''}`}>
+    // cambia la posición del contenedor
+    <div className={isMobile ? "relative w-full bg-[#D80319] py-6 px-4" : "absolute top-10 right-10 z-20"}>
+      {/* formulario */}
+      <div className={`w-full max-w-[350px] bg-white bg-opacity-95 rounded-xl shadow-2xl p-9 text-left ${isMobile ? '' : ''}`}>
         <h2 className="text-xl font-bold text-red-600 text-center mb-2">Cámbiate hoy y disfruta una conexión superior.</h2>
         <p className="text-sm text-gray-700 mb-4">
           Déjanos tus datos y un asesor especializado se contactará contigo.
@@ -80,9 +77,9 @@ const Form: React.FC = () => {
 
           <button
             type="submit"
-            disabled={!acceptedPolicy}
+            disabled={!acceptedPolicy || loading}
             className="w-[150px] font-bold bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg text-sm transition disabled:opacity-100 block mx-auto">
-            Solicitar llamada
+            {loading ? "Enviando..." : "Solicitar llamada"}
           </button>
         </form>
       </div>
@@ -105,4 +102,5 @@ const Form: React.FC = () => {
 };
 
 export default Form;
+
 

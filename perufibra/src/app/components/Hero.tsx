@@ -22,7 +22,7 @@ export default function Hero() {
     const images = isMobile ? mobileImages : desktopImages;
 
     return (
-        <section className="relative flex flex-col items-center gap-2 min-h-[100px]">
+        <section className="relative flex flex-col items-center min-h-[100px]">
         <Carousel images={images} />
         <Form />
         </section>
