@@ -18,7 +18,7 @@ const plans: Plan[] = [
   {
     title: "Internet",
     description: "100% Fibra Óptica",
-    megas: "300 Mbps",
+    megas: "400 Mbps",
     price: "S/ 59",
     paymentType: "Pago Mensual",
     subtext: ["Internet ilimitado", "Wifi doble banda", "Sin costo de instalación"],
@@ -26,7 +26,7 @@ const plans: Plan[] = [
   {
     title: "Internet",
     description: "100% Fibra Óptica",
-    megas: "600 Mbps",
+    megas: "800 Mbps",
     price: "S/ 69",
     paymentType: "Pago Mensual",
     subtext: ["Internet ilimitado", "Wifi doble banda", "Sin costo de instalación"],
@@ -99,7 +99,7 @@ export default function PlansSection() {
 
   const closeSuccess = () => {
     setShowSuccess(false);
-    setOpen(false); // cierra también el modal de formulario
+    setOpen(false); // cierra el modal de formulario
   };
 
   return (
@@ -129,7 +129,7 @@ export default function PlansSection() {
               <p className="text-5xl font-semibold text-black mb-1">{plan.price}</p>
               <p className="text-m font-semibold text-black mb-10">Pago Mensual</p>
 
-              <ul className="text-sm text-black mb-6 space-y-3 text-center">
+              <ul className="text-sm text-black mb-6 space-y-3 text-center ">
                 {plan.subtext.map((item, i) => (
                   <li key={i} className="border-b border-gray-300 pb-2">
                     {item}
@@ -152,7 +152,7 @@ export default function PlansSection() {
         <div className="fixed inset-0 z-[200] flex items-center justify-center" role="dialog" aria-modal="true">
           <div className="absolute inset-0 bg-black/50" onClick={closeModal} aria-hidden="true" />
           <div className="relative rounded-[28px] overflow-hidden shadow-2xl bg-[#F4BA00] w-[94%] max-w-[600px] lg:w-[78%] lg:max-w-[1100px]">
-            <div className="grid grid-cols-[110px_minmax(0,1fr)] lg:grid-cols-[400px_minmax(0,1fr)] h-[500px] lg:h-[520px]">
+            <div className="grid grid-cols-[110px_minmax(0,1fr)] lg:grid-cols-[400px_minmax(0,1fr)] h-[460px] lg:h-[500px]">
               {/* Imagen responsive (móvil/desktop) */}
               <picture className="w-full h-full">
                 <source media="(min-width:1024px)" srcSet="/img/fondo-formulario-popup.png" />
@@ -163,7 +163,7 @@ export default function PlansSection() {
               </picture>
 
               {/* Panel formulario */}
-              <div className="relative p-2 pt-5 sm:p-7 lg:p-10 xl:p-12 lg:pt-10">
+              <div className="relative p-2 pt-5 sm:p-7 lg:p-10 xl:p-17 lg:pt-10">
                 <h3 className="text-[25px] sm:text-3xl lg:text-3xl leading-tight font-extrabold text-black text-center mb-3">
                   Vive la velocidad que tu hogar merece
                 </h3>

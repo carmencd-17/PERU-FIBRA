@@ -47,15 +47,17 @@ const Carousel: React.FC<CarouselProps> = ({ images, autoSlideInterval = 5000 })
       {/* Botón de retroceder */}
       <button
         onClick={prevSlide}
-        className="absolute top-1/2 left-0 transform -translate-y-1/2 px-4 py-2 bg-white text-gray-800 rounded-full shadow-md hover:bg-gray-200 transition">
-        <FaArrowLeft size={24} />
+        aria-label="Anterior"
+        className="absolute top-1/2 left-3 -translate-y-1/2 bg-[#D80319] text-white w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-full hover:bg-[#b00213] focus:outline-none focus:ring-2 focus:ring-white/30 transition-colors">
+        <FaArrowLeft size={18} />
       </button>
 
       {/* Botón de siguiente */}
       <button
         onClick={nextSlide}
-        className="absolute top-1/2 right-0 transform -translate-y-1/2 px-4 py-2 bg-white text-gray-800 rounded-full shadow-md hover:bg-gray-200 transition">
-        <FaArrowRight size={24} />
+        aria-label="Siguiente"
+        className="absolute top-1/2 right-3 -translate-y-1/2 bg-[#D80319] text-white w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-full hover:bg-[#b00213] focus:outline-none focus:ring-2 focus:ring-white/30 transition-colors">
+        <FaArrowRight size={18} />
       </button>
 
       {/* Indicadores de página */}

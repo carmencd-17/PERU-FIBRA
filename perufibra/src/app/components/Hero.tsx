@@ -8,8 +8,8 @@ export default function Hero() {
 
     // Imágenes para escritorio
     const desktopImages = [
-        "/img/banner-perufibra1@0.5x.webp",
-        "/img/banner-perufibra2@0.5x.webp",
+        "/img/banner-perufibra1.webp",
+        "/img/banner-perufibra2.webp",
     ];
 
     // Imágenes para móvil
