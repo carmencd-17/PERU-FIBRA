@@ -2,6 +2,7 @@
 import useDeviceType from "../hooks/useDeviceType";
 import Carousel from "./Carousel/Carousel";
 import Form from './Form';
+import { BiSolidPhoneCall } from "react-icons/bi";
 
 export default function Hero() {
     const isMobile = useDeviceType(); 
@@ -25,6 +26,14 @@ export default function Hero() {
         <section className="relative flex flex-col items-center min-h-[100px]">
         <Carousel images={images} />
         <Form />
+
+        {/* Botón */}
+        <a
+            href="tel:987654321"
+            aria-label="Llamar ahora"
+            className="lg:hidden fixed bottom-6 left-6 z-50 flex items-center justify-center w-20 h-20 rounded-full bg-[#F4BA00] border-2 border-white text-black shadow-sm focus:outline-none focus:ring-2 focus:ring-white/40">
+            <BiSolidPhoneCall size={40} />
+        </a>
         </section>
     );
 }
